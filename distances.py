@@ -1,38 +1,30 @@
-import pandas as pd
-from math import sin, cos, sqrt, atan2, radians
-from scipy.spatial.distance import pdist, squareform
+import numpy as np
+from geopy.distance import geodesic
 
+def calculate_distances(latitude, longitude):
+    n = len(latitude)
+    distances = np.full((n, n), np.inf)
 
-def distance_between_coordinates(x, y):
-    lat1 = radians(x[0])
-    lon1 = radians(x[1])
-    lat2 = radians(y[0])
-    lon2 = radians(y[1])
+    for i in range(n):
+        for j in range(n):
+            if i != j:
+                coord1 = (latitude[i], longitude[i])
+                coord2 = (latitude[j], longitude[j])
+                distance = geodesic(coord1, coord2).kilometers
+                distances[i][j] = distance
 
-    R = 6373.0
-    dlon = lon2 - lon1
-    dlat = lat2 - lat1
-
-    a = sin(dlat / 2) ** 2 + cos(lat1) * cos(lat2) * sin(dlon / 2) ** 2
-    c = 2 * atan2(sqrt(a), sqrt(1 - a))
-
-    distance = R * c
-    return round(distance, 4)
+    distances[distances == 0] = np.inf
+    return distances
 
 
 def get_distances_between_cities(cities):
-    lattitude = []
-    longtitude = []
+    latitude = []
+    longitude = []
 
     for city in cities:
-        lattitude.append(city["coordinates"]["x"])
-        longtitude.append(city["coordinates"]["y"])
+        latitude.append(city["coordinates"]["x"])
+        longitude.append(city["coordinates"]["y"])
 
-    lat_long = pd.DataFrame({'lattitude': lattitude, 'longtitude': longtitude})
-
-    distances = pdist(lat_long.values, metric=distance_between_coordinates)
-
-    points = [f'point_{i}' for i in range(1, len(lat_long) + 1)]
-
-    df_distance = pd.DataFrame(squareform(distances), columns=points, index=points)
-    return df_distance
+    distances = calculate_distances(latitude, longitude)
+    
+    return distances
