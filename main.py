@@ -3,15 +3,11 @@ from routes_calculator import get_best_routes
 from cities import cities
 
 
-if __name__ == '__main__':
-    algorithm_iterations = 10
-    single_car_capacity = 1000
-    number_of_cars = 5
-    
+def find_solution(algorithm_iterations, number_of_generations, single_car_capacity, number_of_cars):
     best_result = None
     
-    for i in range(10):
-        result = get_best_routes(cities, number_of_cars, single_car_capacity)
+    for i in range(algorithm_iterations):
+        result = get_best_routes(cities, number_of_cars, single_car_capacity, number_of_generations)
         total_distance = result['total_distance']
         print(f'Result {i + 1}:\nTotal distance: {total_distance} km\n')
         
@@ -20,3 +16,22 @@ if __name__ == '__main__':
     
     print('----------------------------------------\n')
     print_result(best_result)
+
+
+if __name__ == '__main__':
+    algorithm_iterations = 10
+    number_of_generations = 300
+    single_car_capacity = 1000
+    number_of_cars = 5
+    
+    required_capacity = sum([city['demand'] for city in cities])
+    available_capacity = number_of_cars * single_car_capacity
+
+    print(f'Required capacity: {required_capacity} kg')
+    print(f'Available capacity: {available_capacity} kg')
+
+    if required_capacity > available_capacity:
+        print('No possible solution. The available capacity is not sufficient.')
+    else:
+        print('Solution is possible. Calculating...\n')
+        find_solution(algorithm_iterations, number_of_generations, single_car_capacity, number_of_cars)

@@ -5,11 +5,11 @@ def city_index_to_city(index, cities):
     return cities[index]
 
 
-def get_best_routes(cities, number_of_cars, single_car_capacity):
+def get_best_routes(cities, number_of_cars, single_car_capacity, number_of_generations):
     total_cities = 0
     
     while total_cities != 40:
-        chromosome = get_solution(cities, number_of_cars)
+        chromosome = get_solution(cities, number_of_cars, number_of_generations)
         total_capacity = 0
         total_cities = 0
         cars_result = []
