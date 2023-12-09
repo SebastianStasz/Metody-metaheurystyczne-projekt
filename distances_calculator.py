@@ -1,6 +1,7 @@
 import numpy as np
 from geopy.distance import geodesic
 
+
 def calculate_distances(latitude, longitude):
     n = len(latitude)
     distances = np.full((n, n), np.inf)
