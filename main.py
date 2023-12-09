@@ -1,17 +1,48 @@
 from cities import cities
 from distances import get_distances_between_cities
+from AntColony import AntColony
+import numpy as np
 
-number_of_cars = 5
-car_capacity = 1000
+
+def get_cars_by_highest_capacity(cities):
+    cities_by_demand = sorted(cities, key=lambda x: x["demand"], reverse=True)
+    cars = []
+    
+    for car_number in [1, 2, 3, 4, 5]:
+        capacity = 0
+        cities = []
+
+        if car_number == 5:
+            capacity = sum(city["demand"] for city in cities_by_demand)
+            car = {"number": car_number, "cities": cities_by_demand, "used_capacity": capacity}
+            cars.append(car)
+            break
+        
+        for city in cities_by_demand:
+            new_capacity = capacity + city["demand"]
+            
+            if new_capacity <= 1000:
+                cities_by_demand.remove(city)
+                capacity = new_capacity
+                cities.append(city)
+
+        car = {"number": car_number, "cities": cities, "used_capacity": capacity}
+        cars.append(car)
+    
+    return cars
+
 
 if __name__ == '__main__':
-    distances_matrix = get_distances_between_cities(cities)
-    number_of_clients = len(cities)
-    total_demand = 0
-    
-    for city in cities:
-        total_demand += city["demand"]
+    cars = get_cars_by_highest_capacity(cities)
+    paths = []
 
-    print(f'Number of clients: {number_of_clients}')
-    print(f'Total demand: {total_demand}')
-    print(distances_matrix)
+    for car in cars:
+        distances_matrix = get_distances_between_cities(car["cities"])
+        ant_colony = AntColony(np.array(distances_matrix), 5, 1, 100, 0.95, alpha=1, beta=1)
+        shortest_path = ant_colony.run()
+        paths.append(shortest_path)
+        print(f'Path: {shortest_path}')
+    
+    total_distance = sum(path[1] for path in paths)
+        
+    print(f'Total distance: {total_distance} km')
