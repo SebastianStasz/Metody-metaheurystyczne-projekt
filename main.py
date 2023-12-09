@@ -89,6 +89,8 @@ total_cities = 0
 while total_cities != 40:
     chromosome = get_solution()
     total_cities = 0
+    total_capacity = 0
+    result = ""
     for i in range(chromosome.m):
         output = ""
         required_capacity = 0
@@ -96,18 +98,22 @@ while total_cities != 40:
         city_index = chromosome.solution[i][0]
         city = city_index_to_city(city_index)
         required_capacity += city['demand']
-        output += f'Car {car_number}: {city["name"]}'
+        output += f'Car {car_number}:\nRoute: {city["name"]}'
         for j in range(1,len(chromosome.solution[i])):
             city_index = chromosome.solution[i][j]
             city = city_index_to_city(city_index)
             required_capacity += city['demand']
             output += ' - ' + f'{city["name"]}'
-        output += f' --- # {len(chromosome.solution[i])}'
-        print(output)
-        print(f'Required capacity: {required_capacity}')
+        result += output
+        result += '\n'
+        result += f'Capacity: {required_capacity} kg\n\n'
         if required_capacity > 1000:
             break
         total_cities += len(chromosome.solution[i])
+        total_capacity += required_capacity
 
-    print(total_cities)
-    print("Total distance: ", chromosome.cost)
+    if total_cities == 40:
+        total_distance = round(chromosome.cost, 2)
+        print(result)
+        print(f'Total distance: {total_distance} km')
+        print(f'Total capacity: {total_capacity} kg')
