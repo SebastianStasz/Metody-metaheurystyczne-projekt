@@ -1,6 +1,7 @@
 import numpy as np
 import copy
 from tqdm import tqdm
+import matplotlib.pyplot as plt
 from cities import cities
 from distances import get_distances_between_cities
 
@@ -81,39 +82,80 @@ def get_solution():
     
     return chromosome
 
+
 def city_index_to_city(index):
     return cities[index]
+
+
+def plot_coordinates(data):
+    for i, path in enumerate(data):
+        x_values = [point['coordinates']['x'] for point in path]
+        y_values = [point['coordinates']['y'] for point in path]
+        x_values.append(x_values[0])
+        y_values.append(y_values[0])
+        plt.plot(x_values, y_values, marker='o', label=f'Car {i + 1}')
+
+    plt.xlabel('Longitude')
+    plt.ylabel('Latitude')
+    plt.title('Routes')
+    plt.legend()
+    plt.grid(True)
+    plt.show()
+
+
+def print_results(cars_result, total_distance):
+    routes = []
+    
+    for car in cars_result:
+        car_number = car['number']
+        car_load = car['load']
+        car_route = [route for route in car['route']]
+        cities = [city['name'] for city in car_route]
+        routes.append(car_route)
+        
+        print(f'Car {car_number}')
+        print(f'Load: {car_load}')
+        print(' -> '.join(cities))
+        print('')
+
+    print('')
+    print(f'Total distance: {total_distance} km')
+    print(f'Total capacity: {total_capacity} kg')
+    
+    plot_coordinates(routes)
 
 
 total_cities = 0
 while total_cities != 40:
     chromosome = get_solution()
-    total_cities = 0
     total_capacity = 0
-    result = ""
+    total_cities = 0
+    cars_result = []
+    
     for i in range(chromosome.m):
-        output = ""
         required_capacity = 0
         car_number = i + 1
+        route = []
         city_index = chromosome.solution[i][0]
         city = city_index_to_city(city_index)
+        route.append(city)
         required_capacity += city['demand']
-        output += f'Car {car_number}:\nRoute: {city["name"]}'
+        
         for j in range(1,len(chromosome.solution[i])):
             city_index = chromosome.solution[i][j]
             city = city_index_to_city(city_index)
+            route.append(city)
             required_capacity += city['demand']
-            output += ' - ' + f'{city["name"]}'
-        result += output
-        result += '\n'
-        result += f'Capacity: {required_capacity} kg\n\n'
+        
+        car = {"number": car_number, "load": required_capacity, "route": route}
+        cars_result.append(car)
+        
         if required_capacity > 1000:
             break
+        
         total_cities += len(chromosome.solution[i])
         total_capacity += required_capacity
 
     if total_cities == 40:
         total_distance = round(chromosome.cost, 2)
-        print(result)
-        print(f'Total distance: {total_distance} km')
-        print(f'Total capacity: {total_capacity} kg')
+        print_results(cars_result, total_distance)
