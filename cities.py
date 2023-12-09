@@ -2,7 +2,7 @@ cities = [
     {
         "name": "Kraków",
         "demand": 0,
-        "coordinates": {"x": 50.069054, "y": 19.935438},
+        "coordinates": {"x": 50.064436, "y": 19.94467},
     },
     {
         "name": "Białystok",
@@ -32,16 +32,16 @@ cities = [
     {
         "name": "Gliwice", 
         "demand": 40, 
-        "coordinates": {"x": 50.294113, "y": 18.6657306}},
+        "coordinates": {"x": 50.294113, "y": 18.671012}},
     {
         "name": "Gromnik",
         "demand": 200,
-        "coordinates": {"x": 53.7361111, "y": 15.9897222},
+        "coordinates": {"x": 49.838138, "y": 20.961427},
     },
     {
         "name": "Katowice",
         "demand": 300,
-        "coordinates": {"x": 50.2598987, "y": 19.0215852},
+        "coordinates": {"x": 50.262469, "y": 19.023708},
     },
     {
         "name": "Kielce", 
@@ -55,7 +55,7 @@ cities = [
     {
         "name": "Krynica",
         "demand": 50,
-        "coordinates": {"x": 53.0336093, "y": 23.5880673},
+        "coordinates": {"x": 49.421538, "y": 20.959951},
     },
     {
         "name": "Lublin", 
@@ -136,7 +136,7 @@ cities = [
     {
         "name": "Wrocław",
         "demand": 40,
-        "coordinates": {"x": 51.1263106, "y": 16.9781963},
+        "coordinates": {"x": 51.1263106, "y": 17.037033},
     },
     {
         "name": "Zakopane",

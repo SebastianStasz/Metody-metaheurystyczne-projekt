@@ -2,18 +2,22 @@ import matplotlib.pyplot as plt
 
 
 def plot_coordinates(data):
-    for i, path in enumerate(data):
-        x_values = [point['coordinates']['x'] for point in path]
-        y_values = [point['coordinates']['y'] for point in path]
-        x_values.append(x_values[0])
-        y_values.append(y_values[0])
-        plt.plot(x_values, y_values, marker='o', label=f'Car {i + 1}')
+    fig, ax = plt.subplots()
 
-    plt.xlabel('Longitude')
-    plt.ylabel('Latitude')
-    plt.title('Routes')
-    plt.legend()
-    plt.grid(True)
+    for i, route in enumerate(data):
+        city_names = [city['name'] for city in route]
+        y = [city['coordinates']['x'] for city in route]
+        x = [city['coordinates']['y'] for city in route]
+        
+        plt.plot(x, y, marker='o', label=f'Car {i + 1}')
+        
+        for i, name in enumerate(city_names):
+            ax.text(x[i], y[i], name)
+
+    ax.set_xlabel('Latitude')
+    ax.set_ylabel('Longitude')
+    ax.set_title('Routes')
+    ax.legend()
     plt.show()
 
 

@@ -14,13 +14,14 @@ def find_solution(algorithm_iterations, number_of_generations, single_car_capaci
         if best_result == None or best_result['total_distance'] > total_distance:
             best_result = result
     
-    print('----------------------------------------\n')
+    print('----------------------------------------')
+    print('Best solution\n\n')
     print_result(best_result)
 
 
 if __name__ == '__main__':
     algorithm_iterations = 10
-    number_of_generations = 300
+    number_of_generations = 200
     single_car_capacity = 1000
     number_of_cars = 5
     

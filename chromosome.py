@@ -1,6 +1,5 @@
 import copy
 import numpy as np
-from tqdm import tqdm
 from distances_calculator import get_distances_between_cities
 
 
