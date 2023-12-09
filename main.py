@@ -68,7 +68,7 @@ class Chromosome():
 
 def get_solution():
     chromosome = Chromosome(number_of_cities = number_of_cities, number_of_traveling_salesman = number_of_cars)
-    for it in tqdm(range(100000)):
+    for it in tqdm(range(100)):
         chromosome_copy = copy.deepcopy(chromosome)
         chromosome_copy.mutate_global()
         if chromosome_copy.score < chromosome.score:
