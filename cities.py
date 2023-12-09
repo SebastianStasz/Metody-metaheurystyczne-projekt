@@ -1,4 +1,9 @@
 cities = [
+        {
+        "name": "Kraków",
+        "demand": 0,
+        "coordinates": {"x": 50.069054, "y": 19.935438},
+    },
     {
         "name": "Białystok",
         "demand": 500,

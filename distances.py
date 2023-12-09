@@ -13,7 +13,7 @@ def calculate_distances(latitude, longitude):
                 distance = geodesic(coord1, coord2).kilometers
                 distances[i][j] = distance
 
-    distances[distances == 0] = np.inf
+    distances[distances == 0] = 0
     return distances
 
 
