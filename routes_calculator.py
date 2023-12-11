@@ -6,9 +6,10 @@ def city_index_to_city(index, cities):
 
 
 def get_best_routes(cities, number_of_cars, single_car_capacity, number_of_generations):
+    required_total_cities = len(cities) + 2 * number_of_cars - 1
     total_cities = 0
     
-    while total_cities != 40:
+    while total_cities != required_total_cities:
         chromosome = get_solution(cities, number_of_cars, number_of_generations)
         total_capacity = 0
         total_cities = 0
@@ -38,7 +39,7 @@ def get_best_routes(cities, number_of_cars, single_car_capacity, number_of_gener
             total_cities += len(chromosome.solution[i])
             total_capacity += required_capacity
 
-        if total_cities == 40:
+        if total_cities == required_total_cities:
             total_distance = round(chromosome.cost, 2)
             return {'cars_result': cars_result,
                     'total_distance': total_distance,

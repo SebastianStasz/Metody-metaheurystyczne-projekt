@@ -15,7 +15,7 @@ def find_solution(algorithm_iterations, number_of_generations, single_car_capaci
             best_result = result
     
     print('----------------------------------------')
-    print('Best solution\n\n')
+    print('Best solution\n')
     print_result(best_result)
 
 
