@@ -9,19 +9,21 @@ def find_solution(algorithm_iterations, number_of_generations, single_car_capaci
     for i in range(algorithm_iterations):
         result = get_best_routes(cities, number_of_cars, single_car_capacity, number_of_generations)
         total_distance = result['total_distance']
-        print(f'Result {i + 1}:\nTotal distance: {total_distance} km\n')
+        print(f'Result {i + 1}:\nTotal distance: {total_distance} km.')
+        print(f'Execution time: {round(result["execution_time"], 2)} seconds.\n')
         
         if best_result == None or best_result['total_distance'] > total_distance:
             best_result = result
     
     print('----------------------------------------')
-    print('Best solution\n')
+    print('Best solution')
+    print(f'Execution time: {round(result["execution_time"], 2)} seconds.\n')
     print_result(best_result)
 
 
 if __name__ == '__main__':
     algorithm_iterations = 10
-    number_of_generations = 200
+    number_of_generations = 2500
     single_car_capacity = 1000
     number_of_cars = 5
     
