@@ -42,9 +42,9 @@ def get_best_routes(cities, number_of_cars, single_car_capacity, number_of_gener
             total_capacity += required_capacity
 
         end = time.time()
-        if total_cities == required_total_cities:
-            total_distance = round(chromosome.cost, 2)
-            return {'cars_result': cars_result,
-                    'total_distance': total_distance,
-                    'total_capacity': total_capacity,
-                    'execution_time': end - start}
+    
+    total_distance = round(chromosome.cost, 2)
+    return {'cars_result': cars_result,
+            'total_distance': total_distance,
+            'total_capacity': total_capacity,
+            'execution_time': end - start}
