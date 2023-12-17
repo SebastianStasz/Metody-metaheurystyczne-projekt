@@ -1,8 +1,11 @@
 import matplotlib.pyplot as plt
+import numpy as np
 
 
 def plot_coordinates(data):
     fig, ax = plt.subplots()
+    fig.set_dpi(100)
+    fig.set_size_inches(10, 5)
 
     for i, route in enumerate(data):
         city_names = [city['name'] for city in route]
@@ -18,6 +21,21 @@ def plot_coordinates(data):
     ax.set_ylabel('Longitude')
     ax.set_title('Routes')
     ax.legend()
+    plt.show()
+
+
+def plot_sa(temperatures, costs):
+    fig, ax = plt.subplots(1, 2)
+    fig.set_dpi(100)
+    fig.set_size_inches(10, 5)
+
+    steps = np.arange(1, len(costs) + 1)
+    ax[0].set_xlabel("Steps")
+    ax[0].set_ylabel("Cost")
+    ax[0].plot(steps, costs)
+    ax[1].set_xlabel("Steps")
+    ax[1].set_ylabel("Temperature")
+    ax[1].plot(steps, temperatures)
     plt.show()
 
 
@@ -45,3 +63,4 @@ def print_result(result):
     print(f'Total capacity: {total_capacity} kg')
     
     plot_coordinates(routes)
+    plot_sa(result['temperatures'], result['costs'])

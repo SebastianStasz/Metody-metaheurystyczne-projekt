@@ -27,5 +27,7 @@ def get_distances_between_cities(cities):
         longitude.append(city["coordinates"]["y"])
 
     distances = calculate_distances(latitude, longitude)
-    
+
+    print((distances[0, 2] + distances[2, 6] + distances[6, 0]) * 5)
+
     return distances
