@@ -1,4 +1,4 @@
-# [Archived] Vehicle Routing Problem Solver
+# Vehicle Routing Problem Solver [Archived]
 
 **Vehicle Routing Problem Solver** is a Python-based solution to optimize vehicle routing for a set of cities with varying demands. The project aims to solve a real-world **vehicle routing problem (VRP)** using evolutionary algorithms and a genetic algorithm-inspired approach. The solution is optimized by minimizing the total distance traveled while ensuring that each vehicle does not exceed its capacity.
 
